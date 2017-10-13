@@ -1,0 +1,16 @@
+<%= form_for :session, :url => sessions_create_path, :html => { :method => 'GET' } do |form| %>
+
+	<div class="text-field">
+	  <%= form.label :email %> :
+	  <%= form.text_field :email, type: 'email' %>
+	</div>
+
+
+	<div class="password-field">
+	  <%= form.label :password %> : 
+	  <%= form.password_field :password, type: 'password' %>
+	</div>
+
+	<%= form.submit "Login" %>
+
+<% end %>

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-custom">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><%= link_to "Home", root_path %></li>
+      <% if current_user != nil  %>
+      <div class='right'>
+      <ul class="nav navbar-nav">
+      <li> <%= link_to t(".sign_out"), sign_out_path, method: :delete, class: "sign_out" %></li>
+      <% else %>
+      <li> <%= link_to 'Sign Up', new_user_path %></li>
+      <li> <%= link_to t(".sign_in"), login_path %></li>
+      </ul>
+      </div>
+      <% end %>
+    	<li><%= link_to "About Us", "#" %></li>
+      </div>
+    </ul>
+  </div>
+</nav> 
+
+

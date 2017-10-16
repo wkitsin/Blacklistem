@@ -1,0 +1,9 @@
+<%= form_for :search, url:search_path, method: :get do |f| %>
+
+	<div class='search-field'>
+	<%= f.text_field :adress, placeholder: "Search location or restaurant here" , class: "form-control"%>
+	</div>
+
+	<%= f.submit 'search' %>
+
+<% end %>

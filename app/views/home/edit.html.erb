@@ -1,0 +1,7 @@
+<%= form_for @restaurant, url: home_path do |f| %>
+	<%= render partial: "home/form", locals: {f: f} %>
+	<%= f.submit 'Confirm' %>
+<% end %>
+
+<p> Is this the correct location ? </p>
+<%= render partial: 'layouts/map' %>

@@ -1,0 +1,21 @@
+<h1> Welcome <%= @name %> </h1>
+<br>
+<div class='flash'>
+</div>
+
+<div class='table'>
+	<table style="width:60%", class='location_table'>
+	  <tr>
+	    <th>Adress</th>
+	    <th>Description</th> 
+	    <th>Delete</th>
+	  </tr>
+	  <% @merge.each do |i| %>
+	  <tr>
+	    <td><%= i[0] %></td>
+	    <td><%= i[1] %></td>
+	    <td> <%= link_to 'Delete', home_path(i[2]), remote: true, method: :delete %>
+	  </tr>
+	  <% end %>
+	</table>
+</div>

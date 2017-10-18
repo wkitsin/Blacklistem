@@ -13,12 +13,15 @@ Rails.application.routes.draw do
 # end
 
 # GoogleAuthExample::Application.routes.draw do
-  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/:provider/callback', to: 'sessions#create_omniauth'
   get 'auth/failure', to: redirect('/')
   delete 'signout', to: 'sessions#destroy', as: 'signout'
   get '/search', to: 'home#search'
   resources :sessions, only: [:create]
+  get 'login', to: 'sessions#login'
   resources :home
+  resources :users, only: [:new, :create]
 
   root to: "home#show"
+  get '/profile', to: 'users#show'
 end

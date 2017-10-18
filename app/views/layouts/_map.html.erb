@@ -3,13 +3,61 @@
 	<div style='width: 800px;'>
 	  <div id="map" style='width: 1000px; height: 500px;'></div>
 	</div>
-
 	<script type='text/javascript'>
-	handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-	  markers = handler.addMarkers(<%=raw @hash.to_json %>);
-	  handler.bounds.extendWith(markers);
-	  handler.fitMapToBounds();
-	});
+	function initMap() {
+		var bounds = new google.maps.LatLngBounds();
+		var uluru = <%= raw @hash.to_json %> ;
+		var length = uluru.length; 
+
+	      // var uluru = {lat: -25.363, lng: 131.044};
+	      var center = {lat: 3.1390, lng: 101.6869}
+	      var mapOptions = {mapTypeId: google.maps.MapTypeId.ROADMAP} ; 
+	      var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	      
+
+	      for (i=0; i<length; i++){
+	      	// debugger 
+	      	loc = new google.maps.LatLng(uluru[i].lat, uluru[i].lng);
+	      	bounds.extend(loc);
+
+	      	var marker = new google.maps.Marker({
+	      	  position: {lat: uluru[i].lat, lng: uluru[i].lng},
+	      	  map: map
+	      	});
+	      	// debugger
+
+	      	var content = uluru[i]['infowindow']; 
+	      	var infowindow = new google.maps.InfoWindow()
+	      	// debugger
+	      	google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow){
+	      		return function(){
+	      			infowindow.setContent(content);
+	      			infowindow.open(map, marker);
+	      		};
+	      	})(marker, content, infowindow));
+	      
+	      }
+
+	      map.fitBounds(bounds); 
+	      map.panToBounds(bounds);
+
+	      google.maps.event.addListener(map, 'click', function(event) {
+	        placeMarker(event.latLng);
+	        var lat = event.latLng.lat();
+	        var lng = event.latLng.lng();
+	        // debugger
+	      });
+
+
+	      function placeMarker(location) {
+	          var marker = new google.maps.Marker({
+	              position: location, 
+	              map: map
+	          });
+	      }
+	  }
 	</script>
+	<script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
+	    </script>
 </div>

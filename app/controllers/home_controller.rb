@@ -4,7 +4,6 @@ class HomeController < ApplicationController
 
 	def show 
 		@restaurant = Restaurant.new 
-		# byebug 
 		@res = Restaurant.all
 		@hash = Gmaps4rails.build_markers(@res) do |restaurant, marker|
 		  marker.lat restaurant.latitude
@@ -32,7 +31,6 @@ class HomeController < ApplicationController
 	end 
 
 	def create 
-		#  
 		@restaurant = current_user.restaurants.new(res_params)
 
 		if @restaurant.save 
@@ -56,7 +54,6 @@ class HomeController < ApplicationController
 	end 
 
 	def update
-		byebug 
 		if params[:commit] == "Confirm"
 			@restaurant = Restaurant.find(params[:id]).update(res_params)
 			flash[:success] = 'Feedback has been saved'
@@ -69,6 +66,15 @@ class HomeController < ApplicationController
 
 
 	def index 
+	end 
+
+	def destroy 
+		restaurant = Restaurant.find(params[:id]).delete
+		
+		list
+		respond_to do |format|
+	        format.js {flash[:notice] = 'The location has been deleted'}
+	    end
 	end 
 
 	def require_login 

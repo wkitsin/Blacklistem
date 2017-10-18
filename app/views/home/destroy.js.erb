@@ -1,0 +1,17 @@
+$('.flash').html("<%= flash[:notice] %>")
+
+$('.location_table').remove()
+$('.table').append("<table style='width:60%', class='location_table'>\
+	  <tr>\
+	    <th>Adress</th>\
+	    <th>Description</th> \
+	    <th>Delete</th>\
+	  </tr>\
+	  <% @merge.each do |i| %>\
+	  <tr>\
+	    <td><%= i[0] %></td>\
+	    <td><%= i[1] %></td>\
+	    <td> <%= j link_to 'Delete', home_path(i[2]), remote: true, method: :delete %>\
+	  </tr>\
+	  <% end %>\
+	</table>")

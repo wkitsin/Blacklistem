@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-	before_action :require_login, except: [:new]
-	def index 
+	def show 
+		list
 	end 
 
 	def new 
@@ -9,24 +9,19 @@ class UsersController < ApplicationController
 	end 
 
 	def create 
-		user = User.new(user_params)
-		if user.save 
-			redirect_to root_path  
+		@user = User.new(user_params)
+		if @user.save 
+			flash[:success] = 'User created'
+			session[:user_id] = @user.id
+			redirect_to root_path 
 		else 
-			flash[:error] = 'failed to create user'
-			redirect_to  new_user_path 
-		end 
-	end 
-
-	def require_login 
-		if current_user == nil 
-			redirect_to sessions_home_path 
+			flash[:error] = 'User fail to create'
+			redirect_to root_path 
 		end 
 	end 
 
 	private 
-
-	def user_params 
-		params.require(:user).permit(:name, :email, :password, :password_confirmation)
+	def user_params
+		params.require(:user).permit(:email, :name, :password)
 	end 
 end

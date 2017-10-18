@@ -1,0 +1,11 @@
+<% if current_user %>
+	<%= render partial: 'layouts/searchbar' %>
+<% end %>
+<br>
+<h1> List a place that made you Lau Sai </h1>
+<%= form_for @restaurant, url:home_index_path do |f| %>
+<%= render partial: "home/form", locals: {f: f}%>
+<% end %>
+
+<br>
+<%= render partial: 'layouts/map' %>

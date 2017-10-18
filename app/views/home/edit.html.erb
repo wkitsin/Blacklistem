@@ -1,0 +1,15 @@
+<h1>Address: <%= @name %></h1>
+
+<%= form_for @restaurant, url: home_path do |f| %>
+	<div class='description' %>
+		<%= f.label :Description %>
+		<%= f.text_field :description, type: 'description' %>
+	</div>
+	<%= f.hidden_field :latitude, :id => "lat" %>
+	<%= f.hidden_field :longitude, :id => "lng" %>
+	<h3> Is this the correct location? You can still choose the desired location on the map itself</h3>
+	</br>
+	<%= render partial: 'layouts/map' %>
+	<%= f.submit 'Confirm' %>
+<% end %>
+

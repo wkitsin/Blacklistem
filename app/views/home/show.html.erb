@@ -9,3 +9,18 @@
 
 <br>
 <%= render partial: 'layouts/map' %>
+<br>
+<div class='table'>
+	<table style="width:60%", class='location_table'>
+	  <tr>
+	    <th>Adress</th>
+	    <th>Description</th> 
+	  </tr>
+	  <% @merge.each do |i| %>
+	  <tr>
+	    <td><%= link_to i[0], one_path(i[2]) %></td>
+	    <td><%= i[1] %></td>
+	  </tr>
+	  <% end %>
+	</table>
+</div>

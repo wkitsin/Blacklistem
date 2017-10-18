@@ -2,7 +2,7 @@ class Restaurant < ApplicationRecord
     belongs_to :user
 	geocoded_by :adress
 	validates :adress, presence: true 
-    after_validation :geocode
+    before_create :geocode 
     scope :adress, -> (adress) {
 
     	if adress.blank?

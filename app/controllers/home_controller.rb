@@ -44,6 +44,7 @@ class HomeController < ApplicationController
 
 	def edit 
 		@restaurant = Restaurant.last 
+		@name = @restaurant.adress 
 		@hash = Gmaps4rails.build_markers(@restaurant) do |restaurant, marker|
 		  marker.lat restaurant.latitude
 		  marker.lng restaurant.longitude
@@ -54,14 +55,9 @@ class HomeController < ApplicationController
 	end 
 
 	def update
-		if params[:commit] == "Confirm"
-			@restaurant = Restaurant.find(params[:id]).update(res_params)
-			flash[:success] = 'Feedback has been saved'
-			redirect_to root_path
-		else 
-			@restaurant = Restaurant.find(params[:id]).update(res_params)
-			redirect_to edit_home_path(params[:id])
-		end 
+		@restaurant = Restaurant.find(params[:id]).update(update_res_params)
+		flash[:success] = 'Feedback has been saved'
+		redirect_to root_path
 	end 
 
 
@@ -90,5 +86,9 @@ class HomeController < ApplicationController
 
 	def search_params 
 		params.require(:search).permit(:adress)
+	end 
+
+	def update_res_params 
+		params.require(:restaurant).permit(:description, :latitude, :longitude)
 	end 
 end

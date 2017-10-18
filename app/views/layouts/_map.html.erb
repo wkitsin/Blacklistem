@@ -8,9 +8,7 @@
 		var bounds = new google.maps.LatLngBounds();
 		var uluru = <%= raw @hash.to_json %> ;
 		var length = uluru.length; 
-
-	      // var uluru = {lat: -25.363, lng: 131.044};
-	      var center = {lat: 3.1390, lng: 101.6869}
+		var theMarker = [];
 	      var mapOptions = {mapTypeId: google.maps.MapTypeId.ROADMAP} ; 
 	      var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 	      
@@ -45,16 +43,35 @@
 	        placeMarker(event.latLng);
 	        var lat = event.latLng.lat();
 	        var lng = event.latLng.lng();
+	        console.log(lat)
+	        console.log(lng);
 	        // debugger
+	        document.getElementById("lat").value = lat ; 
+	        document.getElementById("lng").value = lng ; 
 	      });
 
 
 	      function placeMarker(location) {
+	      	// theMarker.push(location)
 	          var marker = new google.maps.Marker({
 	              position: location, 
 	              map: map
 	          });
+	          theMarker.push(location);
+	          // clearOverlays();
 	      }
+
+	      function setMapOnAll(map) {
+              for (var i = 0; i < theMarker.length; i++) {
+                theMarker[i].setMap(map);
+              }
+            }
+
+	      function clearOverlays() {
+	        setMapOnAll(null);
+	      }
+
+
 	  }
 	</script>
 	<script async defer

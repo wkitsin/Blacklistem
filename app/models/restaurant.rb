@@ -17,4 +17,15 @@ class Restaurant < ApplicationRecord
     	end 
 
     }
+
+    def self.maps(res)
+        @hash = Gmaps4rails.build_markers(res) do |restaurant, marker|
+          marker.lat restaurant.latitude
+          marker.lng restaurant.longitude
+          marker.infowindow restaurant.adress
+
+        end
+        
+    end 
+
 end

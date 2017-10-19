@@ -5,24 +5,15 @@ class HomeController < ApplicationController
 	def show 
 		@restaurant = Restaurant.new 
 		@res = Restaurant.all
-		@hash = Gmaps4rails.build_markers(@res) do |restaurant, marker|
-		  marker.lat restaurant.latitude
-		  marker.lng restaurant.longitude
-		  marker.infowindow restaurant.adress
-
-		end
+		@hash = Restaurant.maps(@res)
+		# byebug 
 		all 
 	end 
 
 	def one 
 		# byebug 
 		@res = Restaurant.find(params[:id])
-		@hash = Gmaps4rails.build_markers(@res) do |restaurant, marker|
-		  marker.lat restaurant.latitude
-		  marker.lng restaurant.longitude
-		  marker.infowindow restaurant.adress
-
-		end
+		@hash = Restaurant.maps(@res)
 	end 
 
 	def search 
@@ -31,14 +22,9 @@ class HomeController < ApplicationController
 		@restaurant = Restaurant 
 
 		hash.each do |key, value|
-			@restaurant = @restaurant.send(key,value)
+			@res = @restaurant.send(key,value)
 		end 
-		@hash = Gmaps4rails.build_markers(@restaurant) do |restaurant, marker|
-		  marker.lat restaurant.latitude
-		  marker.lng restaurant.longitude
-		  marker.infowindow restaurant.adress
-
-		end 
+		@hash = Restaurant.maps(@res)
 	end 
 
 	def create 
@@ -54,14 +40,9 @@ class HomeController < ApplicationController
 	end 
 
 	def edit 
-		@restaurant = Restaurant.last 
+		@res = Restaurant.last 
 		@name = @restaurant.adress 
-		@hash = Gmaps4rails.build_markers(@restaurant) do |restaurant, marker|
-		  marker.lat restaurant.latitude
-		  marker.lng restaurant.longitude
-		  marker.infowindow restaurant.adress
-
-		end 
+		@hash = Restaurant.maps(@res)
 		 
 	end 
 

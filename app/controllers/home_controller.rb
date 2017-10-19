@@ -41,9 +41,9 @@ class HomeController < ApplicationController
 
 	def edit 
 		@res = Restaurant.last 
-		@name = @restaurant.adress 
+		@name = @res.adress 
 		@hash = Restaurant.maps(@res)
-		 
+	 
 	end 
 
 	def update

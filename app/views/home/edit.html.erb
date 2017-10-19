@@ -1,6 +1,6 @@
 <h1>Address: <%= @name %></h1>
 
-<%= form_for @restaurant, url: home_path do |f| %>
+<%= form_for @res, url: home_path do |f| %>
 	<div class='description' %>
 		<%= f.label :Description %>
 		<%= f.text_field :description, type: 'description' %>

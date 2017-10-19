@@ -11,7 +11,18 @@ class HomeController < ApplicationController
 		  marker.infowindow restaurant.adress
 
 		end
+		all 
+	end 
 
+	def one 
+		# byebug 
+		@res = Restaurant.find(params[:id])
+		@hash = Gmaps4rails.build_markers(@res) do |restaurant, marker|
+		  marker.lat restaurant.latitude
+		  marker.lng restaurant.longitude
+		  marker.infowindow restaurant.adress
+
+		end
 	end 
 
 	def search 

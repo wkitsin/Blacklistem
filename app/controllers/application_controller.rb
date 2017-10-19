@@ -16,4 +16,17 @@ class ApplicationController < ActionController::Base
   	@merge = location.zip(description, id)
   	# byebug 
   end 
+
+  def all 
+    restaurant = Restaurant.all 
+    location = [] 
+    description = [] 
+    id = [] 
+    restaurant.each do |i|
+      location << i.adress
+      description << i.description
+      id << i.id
+    end 
+    @merge = location.zip(description, id)
+  end 
 end

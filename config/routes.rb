@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#login'
   resources :home
   resources :users, only: [:new, :create]
-
+  get '/one/:id', to: 'home#one', as: 'one'
   root to: "home#show"
   get '/profile', to: 'users#show'
 end

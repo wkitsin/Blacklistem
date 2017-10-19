@@ -6,7 +6,6 @@ class HomeController < ApplicationController
 		@restaurant = Restaurant.new 
 		@res = Restaurant.all
 		@hash = Restaurant.maps(@res)
-		# byebug 
 		all 
 	end 
 

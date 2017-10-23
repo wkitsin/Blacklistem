@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
 	before_action :require_login, except: [:index, :create]
+	before_action :authorization, only: [:destroy, :update]
 
 	def show 
 		@restaurant = Restaurant.new 

@@ -1,12 +1,12 @@
 class HomeController < ApplicationController
 
 	before_action :require_login, except: [:index, :create]
+	before_action :authorization, only: [:destroy, :update]
 
 	def show 
 		@restaurant = Restaurant.new 
 		@res = Restaurant.all
 		@hash = Restaurant.maps(@res)
-		# byebug 
 		all 
 	end 
 
@@ -41,9 +41,9 @@ class HomeController < ApplicationController
 
 	def edit 
 		@res = Restaurant.last 
-		@name = @restaurant.adress 
+		@name = @res.adress 
 		@hash = Restaurant.maps(@res)
-		 
+	 
 	end 
 
 	def update

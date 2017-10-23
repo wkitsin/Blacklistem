@@ -29,4 +29,11 @@ class ApplicationController < ActionController::Base
     end 
     @merge = location.zip(description, id)
   end 
+
+  def authorization
+    if current_user.id != Restaurant.find(params[:id]).user.id
+      flash[:error] = 'No authroity to perform the action'
+      redirect_to root_path 
+    end 
+  end 
 end
